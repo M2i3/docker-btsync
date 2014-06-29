@@ -1,8 +1,9 @@
 #!/bin/bash
-SECRET="${@}"
-: ${SECRET:=`btsync --generate-secret`}
+SECRET=${SECRET:-`btsync --generate-secret`}
+LOCATION=${LOCATION:-/data}
 
 echo "Starting btsync with secret: $SECRET"
+echo "Sharing $LOCATION"
 
 echo "{
     \"device_name\": \"Sync Server\",
@@ -16,7 +17,7 @@ echo "{
     \"shared_folders\": [
         {
             \"secret\": \"$SECRET\",
-            \"dir\": \"/data\",
+            \"dir\": \"$LOCATION\",
             \"use_relay_server\": true,
             \"use_tracker\": true,
             \"use_dht\": false,
